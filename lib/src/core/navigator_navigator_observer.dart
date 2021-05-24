@@ -1,29 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:navigator_navigator/src/navigator_navigator.dart';
+import 'package:navigator_navigator/navigator_navigator.dart';
 
 class NavigatorNavigatorObserver implements NavigatorObserver {
   @override
-  void didPop(Route route, Route previousRoute) {
+  void didPop(Route route, Route? previousRoute) {
     // TODO: implement didPop
   }
 
   @override
-  void didPush(Route route, Route previousRoute) {
+  void didPush(Route route, Route? previousRoute) {
     // TODO: implement didPush
   }
 
   @override
-  void didRemove(Route route, Route previousRoute) {
+  void didRemove(Route route, Route? previousRoute) {
     // TODO: implement didRemove
   }
 
   @override
-  void didReplace({Route newRoute, Route oldRoute}) {
+  void didReplace({Route? newRoute, Route? oldRoute}) {
     // TODO: implement didReplace
   }
 
   @override
-  void didStartUserGesture(Route route, Route previousRoute) {
+  void didStartUserGesture(Route route, Route? previousRoute) {
     // TODO: implement didStartUserGesture
   }
 
@@ -34,6 +34,6 @@ class NavigatorNavigatorObserver implements NavigatorObserver {
 
   @override
   // TODO: implement navigator
-  NavigatorState get navigator =>
+  NavigatorState? get navigator =>
       NavigatorNavigator.instance.navigatorKey.currentState;
 }

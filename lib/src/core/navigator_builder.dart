@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:navigator_navigator/src/navigator_navigator.dart';
-
-import 'package:navigator_navigator/src/navigator_route.dart';
+import 'package:navigator_navigator/navigator_navigator.dart';
 
 class NavigatorBuilder extends StatefulWidget {
   final List<NavigatorRoute> routes;
   final String initialRoute;
   NavigatorBuilder({
-    Key key,
-    @required this.routes,
-    @required this.initialRoute,
+    Key? key,
+    required this.routes,
+    required this.initialRoute,
   }) : super(key: key);
 
   @override
@@ -26,7 +24,7 @@ class _NavigatorBuilderState extends State<NavigatorBuilder> {
       switch (route.type) {
         case NavigatorRouteType.bottomSheet:
           {
-            scaffoldKey.currentState.showBottomSheet(route.builder);
+            scaffoldKey.currentState!.showBottomSheet(route.builder);
           }
 
           break;
@@ -51,7 +49,7 @@ class _NavigatorBuilderState extends State<NavigatorBuilder> {
     return WillPopScope(
       onWillPop: () async {
         NavigatorNavigator.instance.pop();
-        return false;
+        return NavigatorNavigator.instance.length > 1;
       },
       child: Scaffold(
         key: scaffoldKey,

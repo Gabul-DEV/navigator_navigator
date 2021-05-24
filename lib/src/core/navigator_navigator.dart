@@ -11,10 +11,10 @@ abstract class NavigatorNavigatorBase {
   void popAndRemoveUntil(bool Function(Page page) validate);
   void generateRoutes(List<NavigatorRoute> routes);
   void init({
-    @required void Function() update,
-    @required void Function(NavigatorRoute route) overlay,
+    required void Function() update,
+    required void Function(NavigatorRoute route) overlay,
   });
-  Page get currentPage;
+  Page? get currentPage;
   List<Page> get pages;
   int get length;
   GlobalKey<NavigatorState> get navigatorKey;
@@ -25,8 +25,8 @@ class NavigatorNavigator {
 }
 
 class _NavigatorNavigatorImpl implements NavigatorNavigatorBase {
-  Function() update;
-  Function(NavigatorRoute route) overlay;
+  late Function() update;
+  late Function(NavigatorRoute route) overlay;
   var _stack = <Page>[];
 
   final _routes = Map<String, NavigatorRoute>();
@@ -36,7 +36,7 @@ class _NavigatorNavigatorImpl implements NavigatorNavigatorBase {
   GlobalKey<NavigatorState> get navigatorKey => _navigatorKey;
 
   @override
-  Page get currentPage => _stack.isNotEmpty ? _stack.last : null;
+  Page? get currentPage => _stack.isNotEmpty ? _stack.last : null;
   @override
   int get length => _stack.length;
   @override
@@ -44,8 +44,8 @@ class _NavigatorNavigatorImpl implements NavigatorNavigatorBase {
 
   @override
   void init(
-      {@required void Function() update,
-      @required void Function(NavigatorRoute route) overlay}) {
+      {required void Function() update,
+      required void Function(NavigatorRoute route) overlay}) {
     this.update = update;
     this.overlay = overlay;
   }
@@ -72,27 +72,27 @@ class _NavigatorNavigatorImpl implements NavigatorNavigatorBase {
   }
 
   @override
-  void push({String route, Page page}) {
+  void push({String? route, Page? page}) {
     assert(route != null || page != null);
 
     if (route != null) {
       final currentRoute = _routes[route];
-      if (currentRoute.type == NavigatorRouteType.page) {
+      if (currentRoute?.type == NavigatorRouteType.page) {
         final newPage = Platform.isAndroid
             ? MaterialPage(
                 name: route,
                 child: Builder(
-                  builder: currentRoute.builder,
+                  builder: currentRoute!.builder,
                 ))
             : CupertinoPage(
                 name: route,
                 child: Builder(
-                  builder: currentRoute.builder,
+                  builder: currentRoute!.builder,
                 ));
         _add(newPage);
         update();
       } else {
-        overlay(currentRoute);
+        overlay(currentRoute!);
       }
     } else if (page != null) {
       _add(page);
@@ -104,15 +104,16 @@ class _NavigatorNavigatorImpl implements NavigatorNavigatorBase {
     _stack.add(page);
   }
 
-  void _remove({String route, Type type}) {
+  void _remove({String? route, Type? type}) {
+    assert(route != null || type != null);
     _stack.removeWhere(
         (element) => element.name == route || element.runtimeType == type);
   }
 
   @override
-  void generateRoutes(List<NavigatorRoute> newRoutes) {
+  void generateRoutes(List<NavigatorRoute>? newRoutes) {
     assert(newRoutes != null);
-    for (var i = 0; i < newRoutes.length; i++) {
+    for (var i = 0; i < newRoutes!.length; i++) {
       final route = newRoutes[i];
       _routes.addAll({route.name: route});
     }

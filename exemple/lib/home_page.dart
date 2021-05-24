@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:navigator_navigator/src/navigator_navigator.dart';
+import 'package:navigator_navigator/navigator_navigator.dart';
 
 class HomePage extends StatefulWidget {
   final String title;
   final String route;
   HomePage({
-    Key key,
-    @required this.title,
-    @required this.route,
+    Key? key,
+    required this.title,
+    required this.route,
   }) : super(key: key);
 
   @override
