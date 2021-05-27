@@ -7,15 +7,17 @@ abstract class NavigatorRoute {
   final Widget Function(BuildContext context) builder;
   NavigatorRouteType get type;
   NavigatorRoute({
-    @required this.name,
-    @required this.builder,
+    required this.name,
+    required this.builder,
   });
 }
 
 class NavigatorPageRoute extends NavigatorRoute {
+  final List<NavigatorPageRoute> children; 
   NavigatorPageRoute({
-    String name,
-    Widget Function(BuildContext context) builder,
+    required String name,
+    this.children = const <NavigatorPageRoute>[],
+    required Widget Function(BuildContext context) builder,
   }) : super(name: name, builder: builder);
 
   @override
@@ -24,8 +26,8 @@ class NavigatorPageRoute extends NavigatorRoute {
 
 class NavigatorDialogRoute extends NavigatorRoute {
   NavigatorDialogRoute({
-    String name,
-    Widget Function(BuildContext context) builder,
+    required String name,
+    required Widget Function(BuildContext context) builder,
   }) : super(name: name, builder: builder);
   @override
   NavigatorRouteType get type => NavigatorRouteType.dialog;
@@ -33,8 +35,8 @@ class NavigatorDialogRoute extends NavigatorRoute {
 
 class NavigatorBottomSheetRoute extends NavigatorRoute {
   NavigatorBottomSheetRoute({
-    String name,
-    Widget Function(BuildContext context) builder,
+    required String name,
+    required Widget Function(BuildContext context) builder,
   }) : super(name: name, builder: builder);
   @override
   NavigatorRouteType get type => NavigatorRouteType.bottomSheet;

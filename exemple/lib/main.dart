@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:navigator_navigator/home_page.dart';
-import 'package:navigator_navigator/src/navigator_builder.dart';
-import 'package:navigator_navigator/src/navigator_navigator.dart';
-import 'package:navigator_navigator/src/navigator_route.dart';
+import 'home_page.dart';
+import 'package:navigator_navigator/navigator_navigator.dart';
 
 void main() {
   runApp(MyApp());
